@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>mi form</title>
+	 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+
+<script type="text/javascript">
+	
+function enviar() { 
+	 var fechaini = $('input#fechaini').val();
+	 var fechafin = $('input#fechafin').val();
+	 //alert(fechaini);
+
+    $.ajax({
+        url: 'http://localhost:5000/fechaini/'+fechaini+'/fechafin/'+fechafin,
+        //data: {'id_clientes':id_clientes,'nombre':nombre,'activo':activo,'nro_licencias_permitidas':nro_licencias_permitidas},
+        type: "get",
+        //beforeSend: show_Loading(),
+        dataType: "text",
+        success: function(res){
+            $('div#res').html(res);
+        //overlayclickclose_tran();
+        //hide_Loading(); 
+        } 
+    }); 
+}
+
+/*
+if(window.jQuery)
+{
+    alert('jquery esta cargado');
+}
+*/
+</script>
+
+<h2>Prueba Api</h2>
+
+<form>
+  <div class="form-group">
+    <label>Fecha</label>
+    <input type="date" class="form-control" placeholder="Fecha inicio" id="fechaini">
+    <input type="date" class="form-control" placeholder="Fecha fin" id="fechafin">
+  </div>
+  <button type="submit" class="btn btn-primary" onclick="enviar()">Probar web service</button>
+</form>
+
+<div id="res"></div>
+
+</body>
+
+
+</html>
