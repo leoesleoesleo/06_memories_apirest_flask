@@ -3,24 +3,46 @@
 
 <head>
     <meta charset="utf-8">
-    <title>$.ajax jQuery</title>
+    <title>mi form</title>
 </head>
 
 <body>
-    <button id="boton-usuarios">Obtener usuarios</button>
-    <div id="lista-usuarios"></div>
+
+
+    <form>
+      <div class="form-group">
+        <label>Fecha</label>
+        <input type="date" class="form-control" placeholder="Fecha inicio" id="fechaini">
+        <input type="date" class="form-control" placeholder="Fecha fin" id="fechafin">
+      </div>
+      <button type="submit" class="btn btn-primary" onclick="enviar()">Ejecutar</button>
+    </form>
+
+    <div id="res"></div>
+
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
 <script type="text/javascript">
-    
+
+
+    // EJEMPLO
+    /*    
     $("#boton-usuarios").on("click", obtenerUsuarios);
 
     function obtenerUsuarios() {
       $.ajax({
         //url: "http://127.0.0.1:5000/fechaini/2019-07-10/fechafin/2019-07-15",
         url: "https://reqres.in/api/users",
+        headers: {
+                    'Access-Control-Allow-Origin': '*'
+                },
         success: function(respuesta) {
             
           var listaUsuarios = $("#lista-usuarios");
@@ -41,6 +63,38 @@
           alert('Error');  
         }
       });
+    }
+    */
+
+
+    function enviar() { 
+       var fechaini = $('input#fechaini').val();
+       var fechafin = $('input#fechafin').val();
+       
+       alert(fechaini);
+       alert(fechafin);
+       alert('http://localhost:5000/fechaini/'+fechaini+'/fechafin/'+fechafin,);
+
+        $.ajax({
+            url: 'http://localhost:5000/fechaini/'+fechaini+'/fechafin/'+fechafin,
+            //data: {'id_clientes':id_clientes,'nombre':nombre,'activo':activo,'nro_licencias_permitidas':nro_licencias_permitidas},
+            //type: "GET",
+            cors: true ,
+            //beforeSend: show_Loading(),
+            //dataType: 'json',
+            headers: {
+                    'Access-Control-Allow-Origin': '*'
+                },
+            success: function(res){
+                $('div#res').html(res);
+            //overlayclickclose_tran();
+            //hide_Loading(); 
+            }, 
+            error: function() {
+            //console.log("No se ha podido obtener la información");
+                alert('Error');  
+        }
+        }); 
     }
 
 </script>
