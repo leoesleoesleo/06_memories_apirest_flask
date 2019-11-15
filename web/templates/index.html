@@ -15,7 +15,7 @@
         <input type="date" class="form-control" placeholder="Fecha inicio" id="fechaini">
         <input type="date" class="form-control" placeholder="Fecha fin" id="fechafin">
       </div>
-      <button type="submit" class="btn btn-primary" onclick="enviar()">Ejecutar</button>
+      <button type="button" class="btn btn-primary" onclick="enviar()">Ejecutar</button>
     </form>
 
     <div id="res"></div>
@@ -66,35 +66,31 @@
     }
     */
 
-
+   
     function enviar() { 
        var fechaini = $('input#fechaini').val();
        var fechafin = $('input#fechafin').val();
-       
-       alert(fechaini);
-       alert(fechafin);
-       alert('http://localhost:5000/fechaini/'+fechaini+'/fechafin/'+fechafin,);
 
         $.ajax({
             url: 'http://localhost:5000/fechaini/'+fechaini+'/fechafin/'+fechafin,
             //data: {'id_clientes':id_clientes,'nombre':nombre,'activo':activo,'nro_licencias_permitidas':nro_licencias_permitidas},
             //type: "GET",
-            cors: true ,
             //beforeSend: show_Loading(),
-            //dataType: 'json',
-            headers: {
-                    'Access-Control-Allow-Origin': '*'
-                },
+            dataType: 'html',
+            //headers: {
+            //        'Access-Control-Allow-Origin': '*'
+            //    },
             success: function(res){
                 $('div#res').html(res);
             //overlayclickclose_tran();
             //hide_Loading(); 
             }, 
-            error: function() {
-            //console.log("No se ha podido obtener la información");
-                alert('Error');  
+            error: function(e) {
+            console.error(e);
+              //  alert(res);  
         }
         }); 
+
     }
 
 </script>
